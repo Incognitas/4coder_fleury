@@ -461,6 +461,15 @@ typedef int socklen_t;
 
 //~ NOTE(rjf): @f4_custom_layer_initialization
 
+
+// NOTE(Aurelien): Incognitas custom layer additions
+#include "incognitas_types.h"
+#include "incognitas_utils.cpp"
+#include "incognitas_clangformat.cpp"
+#include "incognitas_doyle_helpers.cpp"
+#include "incognitas_base_commands.cpp"
+
+
 void custom_layer_init(Application_Links *app)
 {
     default_framework_init(app);
@@ -539,6 +548,13 @@ CUSTOM_DOC("Fleury startup event")
     String_Const_u8_Array file_names = input.event.core.file_names;
     load_themes_default_folder(app);
     default_4coder_initialize(app, file_names);
+    
+    // NOTE(Aurelien): Initialize our custom arena before doing anything else
+    global_incognitas_arena = make_arena(get_base_allocator_system());
+    
+    // NOTE(Aurelien): Start doyle projects update
+    async_task_no_dep(&global_async_system, do_full_doyle_projects_loading,
+                      make_data(nullptr, 0));
     
     //~ NOTE(rjf): Open special buffers.
     {

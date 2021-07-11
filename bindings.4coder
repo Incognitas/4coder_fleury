@@ -62,6 +62,9 @@ keys_global =
     { "f4_search_for_definition__project_wide", "J", "Control" },
     { "f4_search_for_definition__current_file", "J", "Control", "Shift" },
     { "jump_to_last_point", "J", "Alt" },
+
+    { "incognitas_doyle_open_project", "P", "Alt", "Shift" },
+    { "incognitas_clang_format", "C", "Control", "Shift" },
     
 };
 
